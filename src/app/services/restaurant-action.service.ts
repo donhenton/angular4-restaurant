@@ -1,4 +1,4 @@
-import PubSubService, { PubSubSystem } from './pubsub.service';
+import {PubSubService,  PubSubSystem } from './pubsub.service';
 import { RestaurantService } from './restaurant.service';
 import { WaitRequest, Restaurant, messageType, RefreshMessage, ReviewDTO, ReviewPayload } from './../model/restaurant.interface';
 import { Injectable } from '@angular/core';

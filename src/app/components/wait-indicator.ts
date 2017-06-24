@@ -1,4 +1,4 @@
-import PubSubService, { PubSubSystem } from './../services/pubsub.service';
+import {PubSubService,  PubSubSystem } from './../services/pubsub.service';
 import { WaitRequest } from './../model/restaurant.interface';
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { WAIT_TOPIC } from './../services/pubsub.service'

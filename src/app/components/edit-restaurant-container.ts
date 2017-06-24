@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Restaurant } from './../model/restaurant.interface';
 import { RestaurantService } from './../services/restaurant.service';
-import PubSubService, { PubSubSystem } from './../services/pubsub.service';
+import {PubSubService,  PubSubSystem } from './../services/pubsub.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC ,ADD_RESTAURANT_COMMIT_TOPIC,SAVE_RESTAURANT_COMMIT_TOPIC} from './../services/pubsub.service'
 

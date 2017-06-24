@@ -2,7 +2,7 @@ import { Component, ViewChildren, Renderer, Inject } from '@angular/core';
 import { Restaurant } from './../model/restaurant.interface';
 import { RestaurantService } from './../services/restaurant.service';
 import { RestaurantListRow } from './restaurant-list-row';
-import PubSubService, { PubSubSystem } from './../services/pubsub.service';
+import {PubSubService, PubSubSystem } from './../services/pubsub.service';
 import { WaitRequest, RefreshMessage } from './../model/restaurant.interface';
 import * as postal from 'postal';
 import { DELETE_RESTAURANT_COMMIT_TOPIC,REFRESH_RESTAURANT_TOPIC,CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC, 

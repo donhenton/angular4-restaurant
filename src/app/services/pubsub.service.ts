@@ -1,28 +1,28 @@
 
- 
-import {Injectable} from '@angular/core';
-import {Restaurant} from './../model/restaurant.interface';
+
+import { Injectable } from '@angular/core';
+import { Restaurant } from './../model/restaurant.interface';
 import * as postal from "postal";
 
 
-let _service:PubSubServiceImpl = null; 
+let _service: PubSubServiceImpl = null;
 
 
 export const RESTAURANT_TOPIC = "restaurant-topic"
-export const CRUD_RESTAURANT_WILDCARD_TOPIC = "*.crud."+ RESTAURANT_TOPIC;
-export const ADD_RESTAURANT_TOPIC = "ADD.crud."+ RESTAURANT_TOPIC;
-export const EDIT_RESTAURANT_TOPIC = "EDIT.crud."+ RESTAURANT_TOPIC;
-export const DELETE_RESTAURANT_TOPIC = "DELETE.crud."+ RESTAURANT_TOPIC;
-export const COMMIT_RESTAURANT_WILDCARD_TOPIC = '*.commit.topic.'+ RESTAURANT_TOPIC;
-export const ADD_RESTAURANT_COMMIT_TOPIC = 'ADD.commit.topic.'+ RESTAURANT_TOPIC;
-export const SAVE_RESTAURANT_COMMIT_TOPIC = 'SAVE.commit.topic.'+ RESTAURANT_TOPIC;
-export const DELETE_RESTAURANT_COMMIT_TOPIC = 'DELETE.commit.topic.'+ RESTAURANT_TOPIC;
+export const CRUD_RESTAURANT_WILDCARD_TOPIC = "*.crud." + RESTAURANT_TOPIC;
+export const ADD_RESTAURANT_TOPIC = "ADD.crud." + RESTAURANT_TOPIC;
+export const EDIT_RESTAURANT_TOPIC = "EDIT.crud." + RESTAURANT_TOPIC;
+export const DELETE_RESTAURANT_TOPIC = "DELETE.crud." + RESTAURANT_TOPIC;
+export const COMMIT_RESTAURANT_WILDCARD_TOPIC = '*.commit.topic.' + RESTAURANT_TOPIC;
+export const ADD_RESTAURANT_COMMIT_TOPIC = 'ADD.commit.topic.' + RESTAURANT_TOPIC;
+export const SAVE_RESTAURANT_COMMIT_TOPIC = 'SAVE.commit.topic.' + RESTAURANT_TOPIC;
+export const DELETE_RESTAURANT_COMMIT_TOPIC = 'DELETE.commit.topic.' + RESTAURANT_TOPIC;
 
 export const REVIEW_TOPIC = "review-topic";
-export const COMMIT_REVIEW_WILDCARD_TOPIC = '*.commit.topic.'+ REVIEW_TOPIC;
-export const ADD_REVIEW_COMMIT_TOPIC = 'ADD.commit.topic.'+ REVIEW_TOPIC;
-export const SAVE_REVIEW_COMMIT_TOPIC = 'SAVE.commit.topic.'+ REVIEW_TOPIC;
-export const DELETE_REVIEW_COMMIT_TOPIC = 'DELETE.commit.topic.'+ REVIEW_TOPIC;
+export const COMMIT_REVIEW_WILDCARD_TOPIC = '*.commit.topic.' + REVIEW_TOPIC;
+export const ADD_REVIEW_COMMIT_TOPIC = 'ADD.commit.topic.' + REVIEW_TOPIC;
+export const SAVE_REVIEW_COMMIT_TOPIC = 'SAVE.commit.topic.' + REVIEW_TOPIC;
+export const DELETE_REVIEW_COMMIT_TOPIC = 'DELETE.commit.topic.' + REVIEW_TOPIC;
 export const REFRESH_REVIEW_TOPIC = "refresh.review.topic";
 
 
@@ -33,33 +33,32 @@ export const REFRESH_RESTAURANT_TOPIC = "refresh.restaurant.topic";
 
 
 @Injectable()
-export default class PubSubService {
- 
-  
-  private service:PubSubServiceImpl
-  constructor()
-  {
-    
-    if(_service === null)
-    {
-        _service = new PubSubServiceImpl();
-        
-    }
-    
-  }
+export class PubSubService {
 
-  getService():PubSubServiceImpl
-  {
-      return _service;
-  }
+
+    private service: PubSubServiceImpl
+    constructor() {
+
+        if (_service === null) {
+            _service = new PubSubServiceImpl();
+
+        }
+
+    }
+
+    getService(): PubSubServiceImpl {
+        return _service;
+    }
+
+}
+export default class garbage {
 
 }
 
-export interface PubSubSystem
-{
-    getChannel():IChannelDefinition<any>;
-    
-   
+export interface PubSubSystem {
+    getChannel(): IChannelDefinition<any>;
+
+
 
 }
 
@@ -67,22 +66,19 @@ export interface PubSubSystem
 class PubSubServiceImpl implements PubSubSystem {
 
 
-    private RESTAURANT_CHANNEL:string = "restaurant-channel"
-    constructor()
-    {
-        
-          
-         
+    private RESTAURANT_CHANNEL: string = "restaurant-channel"
+    constructor() {
+
+
+
     }
 
 
-    public getChannel():IChannelDefinition<any>
-    {
-        return  postal.channel(this.RESTAURANT_CHANNEL);
+    public getChannel(): IChannelDefinition<any> {
+        return postal.channel(this.RESTAURANT_CHANNEL);
     }
-    
+
 
 
 }
 
- 

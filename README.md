@@ -32,3 +32,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * the typings area of tsconfig.app.json should be left empty
 * npm install @types/postal --save-dev to keep ng build happy
 
+## Gotchas
+Services cannot be exported as default see https://github.com/angular/angular-cli/issues/3834
+reply by amiram
+

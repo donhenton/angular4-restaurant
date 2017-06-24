@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as postal from "postal";
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import PubSubService, { PubSubSystem } from './../services/pubsub.service';
+import {PubSubService,  PubSubSystem } from './../services/pubsub.service';
 import {
     SAVE_REVIEW_COMMIT_TOPIC, EDIT_RESTAURANT_TOPIC, WAIT_TOPIC,   ADD_REVIEW_COMMIT_TOPIC,
     REFRESH_REVIEW_TOPIC, CRUD_RESTAURANT_WILDCARD_TOPIC, DELETE_REVIEW_COMMIT_TOPIC
