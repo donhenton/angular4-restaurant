@@ -33,6 +33,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * npm install @types/postal --save-dev to keep ng build happy
 
 ## Gotchas
-Services cannot be exported as default see https://github.com/angular/angular-cli/issues/3834
+* Services cannot be exported as default see https://github.com/angular/angular-cli/issues/3834
 reply by amiram
+* to remove interface warnings on rebuild of dev: https://github.com/angular/angular-cli/issues/2034 see strake7 comment, change module to commonjs in tsconfig.app.json from es2015
 
