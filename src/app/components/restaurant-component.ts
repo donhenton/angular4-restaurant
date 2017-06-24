@@ -61,7 +61,7 @@ import {AppendPipe} from './../pipes/append-pipe';
 })
 export class RestaurantComponent {
 
-  private displayMessage: FeedbackMessage;
+  public displayMessage: FeedbackMessage;
   private sub: PubSubSystem;
   private subscriptions: ISubscriptionDefinition<any>[] = [];
 

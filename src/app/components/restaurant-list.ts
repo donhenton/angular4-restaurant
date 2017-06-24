@@ -53,7 +53,7 @@ import { DELETE_RESTAURANT_COMMIT_TOPIC,REFRESH_RESTAURANT_TOPIC,CRUD_RESTAURANT
 export class RestaurantList {
 
     private isLoading: boolean = false;
-    private restaurantList: Restaurant[];// cannot place in constructor for some reason
+
     private doRoll: boolean = false;
     private selectedRowId = -1;
     private crudSubscription: ISubscriptionDefinition<any>;
@@ -61,7 +61,8 @@ export class RestaurantList {
     private subscriptions: ISubscriptionDefinition<any>[] = [];
     private sub: PubSubSystem;
 
-
+    public restaurantList: Restaurant[]; //public to allow aot
+    // cannot place in constructor for some reason
 
     @ViewChildren(RestaurantListRow) rowItems: RestaurantListRow[];
 
@@ -116,7 +117,7 @@ export class RestaurantList {
     }
 
 
-    getRowClass(rowId) {
+    public getRowClass(rowId:number):string {
         var classString = "restaurantRow";
         if (rowId === this.selectedRowId) {
             classString += " highLighted"
@@ -201,7 +202,7 @@ export class RestaurantList {
 
     }
 
-    onEditChangeEvent(ev) {
+    public onEditChangeEvent(ev:any):void {
 
         var message = null;
 
@@ -240,7 +241,7 @@ export class RestaurantList {
     }
 
 
-    performAdd() {
+    public performAdd(ev:any):void {
         let emptyRestaurant = <Restaurant>{};
         emptyRestaurant.id = -1;
         emptyRestaurant.version = 1;

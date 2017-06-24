@@ -52,10 +52,10 @@ export class EditReviewDTOContainer {
 
     private subscriptions: ISubscriptionDefinition<any>[] = [];
     private sub: PubSubSystem;
-    private reviewList: ReviewDTO[];
-    private backUp: Restaurant = null;
+    public reviewList: ReviewDTO[];
+    public backUp: Restaurant = null;
     private reviewBackup: ReviewDTO = null;
-    private validationMessage:string = "";
+    public validationMessage:string = "";
 
     constructor(fb: FormBuilder, private subProvider: PubSubService) {
         // console.log("in DTO con")

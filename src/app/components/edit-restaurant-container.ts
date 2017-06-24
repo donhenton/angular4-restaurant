@@ -86,9 +86,9 @@ export class EditRestaurantContainer {
 
 
     private sub: PubSubSystem;
-    private backUp: Restaurant = null;
+    public backUp: Restaurant = null;
     private actionState: string = null;
-    private editForm: FormGroup;
+    public editForm: FormGroup;
     private crudRequestSubscription: ISubscriptionDefinition<any>;
 
 
@@ -173,7 +173,7 @@ export class EditRestaurantContainer {
 
 
 
-    saveAction(ev) {
+    saveAction(ev:any) {
         if (this.formOkay()) {
             var dataToSend = this.editForm.value;
             this.backUp = this.editForm.value;
@@ -191,7 +191,7 @@ export class EditRestaurantContainer {
         }
     }
 
-    cancelAction() {
+    cancelAction(ev:any) {
         this.editForm.reset();
         this.editForm.setValue(this.backUp);
 

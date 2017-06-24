@@ -62,7 +62,7 @@ export class ReviewListRow {
 
     @Output('edit-event') editChange = new EventEmitter();
     private domNode: HTMLElement = null;
-    private reviewForm: FormGroup;
+    public reviewForm: FormGroup;
     private reviewBackup:ReviewDTO = null;
     private sentInvalid:boolean = false;
     constructor( @Inject(ElementRef) elementRef: ElementRef, fb: FormBuilder) {
