@@ -39,4 +39,5 @@ reply by amiram
 * when running ng build --prod, the html components cannot have access to private variables, so 
 if a inline html template talks to a private variable, you will need to make it non private for
 working with Angular4: https://github.com/angular/angular-cli/issues/5621
+* also inline calls in html must match signatures of your functions, so no function(x) and calling as function()
 
