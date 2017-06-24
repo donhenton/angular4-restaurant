@@ -36,4 +36,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * Services cannot be exported as default see https://github.com/angular/angular-cli/issues/3834
 reply by amiram
 * to remove interface warnings on rebuild of dev: https://github.com/angular/angular-cli/issues/2034 see strake7 comment, change module to commonjs in tsconfig.app.json from es2015
+* when running ng build --prod, the html components cannot have access to private variables, so 
+if a inline html template talks to a private variable, you will need to make it non private for
+working with Angular4: https://github.com/angular/angular-cli/issues/5621
 
