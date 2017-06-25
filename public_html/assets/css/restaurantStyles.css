@@ -1,0 +1,355 @@
+.restaurantApp {
+  box-sizing: border-box; 
+  width:1100px}
+  .restaurantApp .grouping:before,
+  .restaurantApp .grouping:after {
+    content: " ";
+    display: table; }
+  .restaurantApp .grouping:after {
+    clear: both; }
+  .restaurantApp .mainContainer {
+    margin: 5px 5px; }
+  .restaurantApp .hidden {
+    display: none; }
+  .restaurantApp .editHeader {
+    font-size: 25px;
+    font-weight: bold;
+    float: left; }
+  .restaurantApp .restaurantListContainer, .restaurantApp .editRestaurantContainer, .restaurantApp .editReviewContainer {
+    float: left;
+    padding: 1.0%;
+    margin: 5px; }
+  .restaurantApp .errorMessage {
+    float: left;
+    color: red; }
+  .restaurantApp .restaurantListContainer {
+    border: 4px #ccc double;
+    width: 100%;
+    height: 195px;
+    overflow: hidden; }
+    .restaurantApp .restaurantListContainer #displayMessage.success {
+      color: blue; }
+    .restaurantApp .restaurantListContainer #displayMessage.error {
+      color: red; }
+    .restaurantApp .restaurantListContainer .nameItem {
+      max-width: 400px;
+      min-width: 400px;
+      width:400px;
+      text-align: left; }
+    .restaurantApp .restaurantListContainer .cityItem {
+      max-width: 200px;
+      min-width: 200px;
+      width:200px;
+      text-align: left; }
+    .restaurantApp .restaurantListContainer .stateItem {
+      max-width: 50px;
+      min-width: 50px;
+      width:50px;
+      text-align: left; }
+    .restaurantApp .restaurantListContainer .zipCodeItem {
+     max-width: 100px;
+      min-width: 100px;
+      width:100px;
+      text-align: center; }
+    .restaurantApp .restaurantListContainer .versionItem {
+      max-width: 70px;
+      min-width: 70px;
+      width:70px;
+      text-align: center; }
+    .restaurantApp .restaurantListContainer .actionItems {
+      max-width: 100px;
+      min-width: 100px;
+      width:100px;
+      text-align: center; }
+  .restaurantApp #tHeadContainer, .restaurantApp #tbodyContainer {
+    margin-top: 5px;
+    width: 98%; }
+    .restaurantApp #tHeadContainer th, .restaurantApp #tbodyContainer th {
+      background-color: #08c;
+      color: white;
+      border-right: thin solid white;
+      padding-bottom: 5px;
+      text-align: center; }
+    .restaurantApp #tHeadContainer table, .restaurantApp #tbodyContainer table {
+   /*//   width: 1065px;*/
+      border-collapse: collapse;
+      table-layout: fixed;
+      empty-cells: show; }
+    .restaurantApp #tHeadContainer td, .restaurantApp #tbodyContainer td {
+      padding-left: 2px;
+      padding-bottom: 2px; }
+    .restaurantApp #tHeadContainer tr.restaurantRow, .restaurantApp #tbodyContainer tr.restaurantRow {
+      cursor: pointer; }
+  .restaurantApp #tbodyContainer {
+    height: 105px;
+    overflow-y: scroll; }
+    .restaurantApp #tbodyContainer td {
+      border: thin solid #08c;
+      margin: 5px; }
+    .restaurantApp #tbodyContainer tr.highLighted .nameItem, .restaurantApp #tbodyContainer tr.highLighted .cityItem, .restaurantApp #tbodyContainer tr.highLighted .stateItem, .restaurantApp #tbodyContainer tr.highLighted .zipCodeItem, .restaurantApp #tbodyContainer tr.highLighted .versionItem {
+      background-color: lightblue;
+      color: white; }
+  .restaurantApp #editControlGroup, .restaurantApp .editContainer {
+    width: 100%; }
+  .restaurantApp .editReviewContainer {
+    border: 4px #ccc double;
+    width: 53%;
+     
+    overflow: hidden; }
+    .restaurantApp .editReviewContainer table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      empty-cells: show; }
+   
+    .restaurantApp .editReviewContainer #reviewTableBodyContainer {
+      height: 110px;
+      overflow-y: scroll;
+      width: 570px; }
+    .restaurantApp .editReviewContainer #reviewTableHeaderContainer {
+      clear:both;
+       }
+    .restaurantApp .editReviewContainer .highlighted, .restaurantApp .editReviewContainer .highlighted select, .restaurantApp .editReviewContainer .highlighted input {
+      background-color: lightblue;
+      color: white; }
+    .restaurantApp .editReviewContainer .dimmed {
+      opacity: .3; }
+    .restaurantApp .editReviewContainer #reviewListing {
+      width: 98%;
+      font-size: 15px;
+      height: 25px;
+      border: 2px solid #08c; }
+    .restaurantApp .editReviewContainer #starRating {
+      background: transparent;
+      width: 50px;
+      border: 2px solid #08c;
+      font-size: 15px;
+      border-radius: 20px;
+      height: 25px; }
+
+       .restaurantApp .editReviewContainer .header {
+      background-color: #08c;
+      color: white;
+      border-right: 2px solid white;
+      display: inline-table;
+      
+      padding-top: 3px;
+      padding-bottom:3px;
+      text-align: center; }
+
+     .restaurantApp .editReviewContainer i.fa
+     {
+       margin-left: 5px;
+     }
+
+
+
+      .restaurantApp .editReviewContainer .header.rating {
+      width: 100px; }
+      .restaurantApp .editReviewContainer .header.listing {
+      width: 350px; }
+      .restaurantApp .editReviewContainer .header.actionArea {
+      width: 100px; }
+
+
+
+      .restaurantApp .editReviewContainer td.listing {
+        width: 350px; }
+      .restaurantApp .editReviewContainer td.rating {
+        width: 100px; }
+      .restaurantApp .editReviewContainer td.actionButton {
+        width: 50px;
+        text-align: center; }
+
+
+
+      .restaurantApp .editReviewContainer .review-validation-message {
+
+        margin-left: 20px;
+        margin-top: 10px;
+        display: inline-block;
+        color: red;
+        font-style: italic
+        
+      }
+
+
+    .restaurantApp .editReviewContainer td {
+      padding: 5px;
+      border: thin solid #08c;
+      vertical-align: center;
+      height: 30px; }
+      
+    .restaurantApp .editReviewContainer .btnEdit {
+      font-family: Arial;
+      color: #ffffff;
+      font-size: 10px;
+      background: #08c;
+      width: 42px;
+      padding: 5px 5px 5px 5px;
+      text-decoration: none; }
+    .restaurantApp .editReviewContainer .btnDelete {
+      font-family: Arial;
+      color: #ffffff;
+      font-size: 10px;
+      width:42px;
+      position:relative;
+      background: #d93434;
+      padding: 5px 5px 5px 5px;
+      text-decoration: none; }
+
+    .restaurantApp .editReviewContainer .dimmed .btnDelete,.restaurantApp .editReviewContainer .dimmed .btnEdit {
+
+      pointer-events: none !important;
+      cursor: default !important;
+    }
+
+  .restaurantApp .editRestaurantContainer {
+    border: 4px #ccc double;
+    width: 45%; }
+    .restaurantApp .editRestaurantContainer .editTable {
+      width: 100%; }
+    .restaurantApp .editRestaurantContainer td {
+      height: 45px; }
+    .restaurantApp .editRestaurantContainer input, .restaurantApp .editRestaurantContainer select {
+      border: thin solid #3498db;
+      font-size: 12px;
+      height: 25px; }
+    .restaurantApp .editRestaurantContainer input.inputName {
+      width: 175px; }
+    .restaurantApp .editRestaurantContainer input.age {
+      width: 100px; }
+     .restaurantApp  .inactive {
+       opacity: .4;
+       cursor: default;
+       pointer-events: none;
+       filter: grayscale(1);
+      
+       }
+
+
+
+  .restaurantApp .editButton {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 15px;
+    background-repeat: repeat-x;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #006dcc;
+    background-image: -moz-linear-gradient(top, #08c, #04c);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#04c));
+    background-image: -webkit-linear-gradient(top, #08c, #04c);
+    background-image: -o-linear-gradient(top, #08c, #04c);
+    background-image: linear-gradient(to bottom, #08c, #04c);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0044cc',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }
+    .restaurantApp .editButton:hover {
+      background-color: #08c;
+      background-image: -moz-linear-gradient(top, #08c, #08c);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#08c));
+      background-image: -webkit-linear-gradient(top, #08c, #08c);
+      background-image: -o-linear-gradient(top, #08c, #08c);
+      background-image: linear-gradient(to bottom, #08c, #08c);
+      text-decoration: none; }
+  .restaurantApp .warnButton {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 15px;
+    background-repeat: repeat-x;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #006dcc;
+    background-image: -moz-linear-gradient(top, #d93434, #b82b2b);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08c), to(#04c));
+    background-image: -webkit-linear-gradient(top, #d93434, #b82b2b);
+    background-image: -o-linear-gradient(top, #d93434, #b82b2b);
+    background-image: linear-gradient(to bottom, #d93434, #b82b2b);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0044cc',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }
+    .restaurantApp .warnButton:hover {
+      background-color: #08c;
+      background-image: -moz-linear-gradient(top, #d93434, #d93434);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d93434), to(#d93434));
+      background-image: -webkit-linear-gradient(top, #d93434, #d93434);
+      background-image: -o-linear-gradient(top, #d93434, #d93434);
+      background-image: linear-gradient(to bottom, #d93434, #d93434);
+      text-decoration: none; }
+  .restaurantApp .addButton {
+    float: right;
+    margin-bottom: 20px; }
+  .restaurantApp div.waitIndicator {
+    background: rgba(0, 0, 0, 0.5) url("images/spiffygif_96x96.gif") 50% 50% no-repeat;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 999; }
+  .restaurantApp input[type=text], .restaurantApp textarea, .restaurantApp select {
+    -webkit-transition: all 0.10s ease-in-out;
+    -moz-transition: all 0.10s ease-in-out;
+    -ms-transition: all 0.10s ease-in-out;
+    -o-transition: all 0.10s ease-in-out;
+    outline: none;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD; }
+  .restaurantApp input[type=text]:focus, .restaurantApp textarea:focus, .restaurantApp select:focus {
+    box-shadow: 0 0 5px #51cbee;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #51cbee; }
+  .restaurantApp button {
+    -webkit-transition: all 0.10s ease-in-out;
+    -moz-transition: all 0.10s ease-in-out;
+    -ms-transition: all 0.10s ease-in-out;
+    -o-transition: all 0.10s ease-in-out;
+    outline: none;
+    border: 1px solid #DDDDDD; }
+  .restaurantApp button:focus {
+    box-shadow: 0 0 5px #51cbee;
+    border: 1px solid #51cbee; }
+
+    .restaurantApp .red-color
+    {
+      color: red;
+    }
+    .errorInfo
+    {
+      font-size:12px;
+      font-style:italic;
+    }
