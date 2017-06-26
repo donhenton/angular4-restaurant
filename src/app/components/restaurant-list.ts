@@ -139,6 +139,21 @@ export class RestaurantList {
                 }]);
                 //console.log("xxx "+activeRow[0].row.name)
                 this.doRoll = false;
+                /**
+                 *  the render has been depricated to renderer2
+                 *        let selector = "[data-id=\""+activeRow[0].row.id+"\"]";
+                          let foundRow = this.renderer.selectRootElement(selector);
+                          foundRow.scrollIntoView();
+                 * 
+                 * unfortunately, simply invoking selectRootElement prevents the row from 
+                 * appearing in the list, so depricated code for now
+                 * 
+                 */
+
+
+
+
+
             }
             else {
                 //console.log("active row not found")
