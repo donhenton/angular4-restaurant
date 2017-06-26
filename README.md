@@ -1,6 +1,8 @@
-# Angular4Restaurant
+# Angular4 Restaurant
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.0.
+
+The application is running at http://donhenton-node.herokuapp.com/restaurantAngular4.doc
 
 ## Development server
 
