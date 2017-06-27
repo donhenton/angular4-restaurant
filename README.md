@@ -47,6 +47,6 @@ working with Angular4: https://github.com/angular/angular-cli/issues/5621
   You can find the ts files under the webpack folder
   
 ## Integration with SASS
-see https://stackoverflow.com/jobs/126185/sr-javascript-engineer-machine-learning-leading-elastic?med=clc
+see https://stackoverflow.com/questions/37440312/angular-cli-how-to-add-sass-and-or-bootstrap
 
 
