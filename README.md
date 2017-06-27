@@ -44,5 +44,9 @@ working with Angular4: https://github.com/angular/angular-cli/issues/5621
 * also inline calls in html must match signatures of your functions, so no function(x) and calling as function()
 
 ## Setting up chrome debugger to read ts map files under ng
-https://stackoverflow.com/questions/37584122/typescript-files-not-showing-in-angular-2-cli-project-using-chrome-web-developer
+  You can find the ts files under the webpack folder
+  
+## Integration with SASS
+see https://stackoverflow.com/jobs/126185/sr-javascript-engineer-machine-learning-leading-elastic?med=clc
+
 
