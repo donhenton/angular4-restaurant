@@ -1,23 +1,23 @@
-import {PubSubService,  PubSubSystem } from './../services/pubsub.service';
+import { PubSubService, PubSubSystem } from './../services/pubsub.service';
 import { WaitRequest } from './../model/restaurant.interface';
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
 import { WAIT_TOPIC } from './../services/pubsub.service'
 
 @Component({
   selector: 'wait-indicator',
   template: `
-   
+
   <div [class.waitIndicator]="isProcessing">
-      
+
   </div>
- 
-  
+
+
   `
 })
-export class WaitIndicator {
+export class WaitIndicator implements OnInit, OnDestroy{
 
 
-  @Input() isProcessing: boolean = false;
+  @Input() isProcessing = false;
 
   private sub: PubSubSystem;
   private waitSubscription: ISubscriptionDefinition<any>;

@@ -1,5 +1,6 @@
+// tslint:disable:no-trailing-whitespace
 import { Restaurant, ReviewDTO } from './../model/restaurant.interface';
-import { Component, Input, EventEmitter, Output, ElementRef, Inject } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ElementRef, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import 'rxjs/Rx';
 import { InputValidators } from './../validators/input-validators';
@@ -39,33 +40,33 @@ import { InputValidators } from './../validators/input-validators';
                     <td class="actionButton">
                          
                             <button *ngIf="!matchCurrent()"  (click)="onClick($event,'EDIT')" class='btnEdit'>Edit</button>    
-                            <button *ngIf="matchCurrent()"  [ngClass]="{inactive:this.reviewForm.invalid}"     (click)="onClick($event,'SAVE')" class='btnEdit'>Save</button> 
-                       
-                    </td> 
-                    
+                            <button *ngIf="matchCurrent()"  [ngClass]="{inactive:this.reviewForm.invalid}"     (click)="onClick($event,'SAVE')" class='btnEdit'>Save</button>
+
+                    </td>
+
                     <td class="actionButton">
-                       
-                            <button *ngIf="!matchCurrent()" (click)="onClick($event,'DELETE')" class='btnDelete'>Delete</button>                       
+
+                            <button *ngIf="!matchCurrent()" (click)="onClick($event,'DELETE')" class='btnDelete'>Delete</button>
                             <button *ngIf="matchCurrent()" (click)="onClick($event,'CANCEL')" class='btnDelete'>Cancel</button>
-                        
-                    </td> 
+
+                    </td>
                     </form>
   `
 })
-export class ReviewListRow {
+export class ReviewListRow implements OnInit, AfterViewInit {
 
 
 
     @Input() review: ReviewDTO;
     @Input() idx: number;
-    @Input() currentReview: ReviewDTO; //selected by the container if none, then this is null;
+    @Input() currentReview: ReviewDTO; // selected by the container if none, then this is null;
 
     @Output('edit-event') editChange = new EventEmitter();
     private domNode: HTMLElement = null;
     public reviewForm: FormGroup;
-    private reviewBackup:ReviewDTO = null;
-    private sentInvalid:boolean = false;
-    constructor( @Inject(ElementRef) elementRef: ElementRef, fb: FormBuilder) {
+    private reviewBackup: ReviewDTO = null;
+    private sentInvalid = false;
+    constructor(@Inject(ElementRef) elementRef: ElementRef, fb: FormBuilder) {
         this.domNode = elementRef.nativeElement;
         this.reviewForm = fb.group({
             reviewListing: ['', Validators.compose([
@@ -78,44 +79,38 @@ export class ReviewListRow {
             starRating: [1, Validators.required]
         })
 
-
-
-
-
-
-
     }
     ngAfterViewInit() {
-        //this.reportDom.emit({"dom": this.domNode});
+        // this.reportDom.emit({"dom": this.domNode});
 
     }
 
     ngOnInit() {
         this.reviewForm.setValue(this.review);
-        this.reviewBackup = {...this.review};
+        this.reviewBackup = { ...this.review };
         this.reviewForm.controls.reviewListing.valueChanges
             .debounceTime(200)
             .subscribe(this.onListingChange.bind(this));
     }
 
     onListingChange(ev) {
-        if (this.reviewForm.invalid && !this.sentInvalid)
-        {
-            //formObject.controls.username.errors
-            let message = "Review Listing "+this.reviewForm.controls['reviewListing'].errors.message;
-            this.editChange.emit({ "type": "FORM_VALIDATION", "selectedReview": this.review, idx: this.idx, invalid: this.reviewForm.invalid, message: message });
+        if (this.reviewForm.invalid && !this.sentInvalid) {
+            // formObject.controls.username.errors
+            const message = 'Review Listing ' + this.reviewForm.controls['reviewListing'].errors.message;
+            this.editChange.emit({ 'type': 'FORM_VALIDATION',
+               'selectedReview': this.review, idx: this.idx, invalid: this.reviewForm.invalid, message: message });
             this.sentInvalid = true;
         }
-        if (!this.reviewForm.invalid && this.sentInvalid)
-        {
+        if (!this.reviewForm.invalid && this.sentInvalid) {
             this.sentInvalid = false;
-            this.editChange.emit({ "type": "FORM_VALIDATION", "selectedReview": this.review, idx: this.idx, invalid: this.reviewForm.invalid, message:"" });
+            this.editChange.emit({ 'type': 'FORM_VALIDATION',
+               'selectedReview': this.review, idx: this.idx, invalid: this.reviewForm.invalid, message: '' });
         }
-         
+
     }
 
     matchCurrent(): boolean {
-        let hit: boolean = false;
+        let hit = false;
         if (this.currentReview && this.currentReview.id === this.review.id) {
             hit = true;
         }
@@ -130,27 +125,26 @@ export class ReviewListRow {
 
     onClick(ev, type) {
 
-        if (type === "CANCEL") {
+        if (type === 'CANCEL') {
             this.reviewForm.setValue(this.reviewBackup);
-            this.editChange.emit({ "type": type, "selectedReview": this.review, idx: this.idx });
+            this.editChange.emit({ 'type': type, 'selectedReview': this.review, idx: this.idx });
         }
-        if (type === "DELETE") {
+        if (type === 'DELETE') {
 
-            this.editChange.emit({ "type": type, "selectedReview": this.review, idx: this.idx });
+            this.editChange.emit({ 'type': type, 'selectedReview': this.review, idx: this.idx });
         }
-        if (type == "EDIT") {
+        if (type === 'EDIT') {
 
 
-            this.editChange.emit({ "type": type, "selectedReview": this.review, idx: this.idx });
+            this.editChange.emit({ 'type': type, 'selectedReview': this.review, idx: this.idx });
         }
-        if (type == "SAVE") {
+        if (type === 'SAVE') {
 
             if (this.reviewForm.valid) {
                 if (this.review.id > -1) {
-                    this.editChange.emit({ "type": type, "selectedReview": this.reviewForm.value, idx: this.idx });
-                }
-                else {
-                    this.editChange.emit({ "type": "ADD", "selectedReview": this.reviewForm.value, idx: this.idx });
+                    this.editChange.emit({ 'type': type, 'selectedReview': this.reviewForm.value, idx: this.idx });
+                } else {
+                    this.editChange.emit({ 'type': 'ADD', 'selectedReview': this.reviewForm.value, idx: this.idx });
                 }
             }
         }

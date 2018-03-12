@@ -1,23 +1,24 @@
-import { Component, ViewChildren, Renderer, Inject } from '@angular/core';
+import { Component, ViewChildren, Renderer, Inject, OnDestroy, AfterViewChecked, OnInit } from '@angular/core';
 import { Restaurant } from './../model/restaurant.interface';
 import { RestaurantService } from './../services/restaurant.service';
 import { RestaurantListRow } from './restaurant-list-row';
-import {PubSubService, PubSubSystem } from './../services/pubsub.service';
+import { PubSubService, PubSubSystem } from './../services/pubsub.service';
 import { WaitRequest, RefreshMessage } from './../model/restaurant.interface';
 import * as postal from 'postal';
-import { DELETE_RESTAURANT_COMMIT_TOPIC,REFRESH_RESTAURANT_TOPIC,CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC, 
+import {
+    DELETE_RESTAURANT_COMMIT_TOPIC, REFRESH_RESTAURANT_TOPIC, CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC,
     ADD_RESTAURANT_TOPIC, DELETE_RESTAURANT_TOPIC, EDIT_RESTAURANT_TOPIC, REFRESH_REVIEW_TOPIC
 } from './../services/pubsub.service'
 
 @Component({
     selector: 'restaurant-list',
     template: `
-   
-   
+
+
 <div class="restaurantListContainer">
 <button (click)="performAdd($event)" class="editButton addButton" >Add Record</button>
     <div id="restaurantScrollList">
-        <div id="tHeadContainer" data-reactid=".0.1.1.0">
+        <div id="tHeadContainer">
             <table>
                 <tbody>
                     <tr>
@@ -47,21 +48,21 @@ import { DELETE_RESTAURANT_COMMIT_TOPIC,REFRESH_RESTAURANT_TOPIC,CRUD_RESTAURANT
 
     </div>
 </div>
-  
+
   `
 })
-export class RestaurantList {
+export class RestaurantList implements OnDestroy, AfterViewChecked, OnInit {
 
-    private isLoading: boolean = false;
+    private isLoading = false;
 
-    private doRoll: boolean = false;
+    private doRoll = false;
     private selectedRowId = -1;
     private crudSubscription: ISubscriptionDefinition<any>;
     private refreshSubscription: ISubscriptionDefinition<any>;
     private subscriptions: ISubscriptionDefinition<any>[] = [];
     private sub: PubSubSystem;
 
-    public restaurantList: Restaurant[]; //public to allow aot
+    public restaurantList: Restaurant[]; // public to allow aot
     // cannot place in constructor for some reason
 
     @ViewChildren(RestaurantListRow) rowItems: RestaurantListRow[];
@@ -75,7 +76,7 @@ export class RestaurantList {
         this.refreshSubscription = this.sub.getChannel().subscribe(REFRESH_RESTAURANT_TOPIC,
             (data: any, envelope: IEnvelope<any>) => this.handleRefresh(data, envelope));
 
-        let s1 = this.sub.getChannel().subscribe(REFRESH_REVIEW_TOPIC,
+        const s1 = this.sub.getChannel().subscribe(REFRESH_REVIEW_TOPIC,
             (data: any, envelope: IEnvelope<any>) => this.handleReviewRefresh(data.selectedRestaurant, envelope));
 
         this.subscriptions.push(this.crudSubscription);
@@ -84,31 +85,26 @@ export class RestaurantList {
 
     }
 
-    handleReviewRefresh(data:Restaurant, envelope:IEnvelope<any>)
-    {
-         let t =      this.restaurantList.map( (res) => {
-            if (res.id == data.id)
-            {
-                console.log("refreshing reviews in list")
-                res = {...data};
+    handleReviewRefresh(data: Restaurant, envelope: IEnvelope<any>) {
+        const t = this.restaurantList.map((res) => {
+            if (res.id === data.id) {
+                // console.log('refreshing reviews in list')
+                res = { ...data };
             }
             return res;
-           
-
-
-        })   
+        })
 
         this.restaurantList = <Restaurant[]>t;
     }
 
     handleCrudOperation(data: any, envelope: IEnvelope<any>) {
-      //  console.log("in restaurant-list handleCrud " + envelope.topic + " not needed ");
+        //  console.log("in restaurant-list handleCrud " + envelope.topic + " not needed ");
     }
     handleRefresh(data: RefreshMessage, envelope: IEnvelope<any>) {
         // console.log("in restaurant-list refresh " + JSON.stringify(envelope));
         console.log('got refresh message')
         if (data.selectedRestaurantId) {
-            //if this is an add, roll
+            // if this is an add, roll
             this.selectedRowId = data.selectedRestaurantId;
 
 
@@ -117,10 +113,10 @@ export class RestaurantList {
     }
 
 
-    public getRowClass(rowId:number):string {
-        var classString = "restaurantRow";
+    public getRowClass(rowId: number): string {
+        let classString = 'restaurantRow';
         if (rowId === this.selectedRowId) {
-            classString += " highLighted"
+            classString += ' highLighted'
         }
         return classString;
     }
@@ -128,35 +124,34 @@ export class RestaurantList {
     ngAfterViewChecked() {
 
         if (this.rowItems && this.selectedRowId > -1 && this.doRoll) {
-            let activeRow = this.rowItems.filter(r => {
+            const activeRow = this.rowItems.filter(r => {
                 return r.row.id === this.selectedRowId;
             })
-            if (activeRow && activeRow.length == 1) {
-                //console.log("did the scroll")
+            if (activeRow && activeRow.length === 1) {
+                // console.log("did the scroll")
                 this.renderer.invokeElementMethod(activeRow[0].getDom(), 'scrollIntoView', [{
-                    behavior: "smooth",
-                    block: "start",
+                    behavior: 'smooth',
+                    block: 'start',
                 }]);
-                //console.log("xxx "+activeRow[0].row.name)
+                // console.log("xxx "+activeRow[0].row.name)
                 this.doRoll = false;
                 /**
                  *  the render has been depricated to renderer2
                  *        let selector = "[data-id=\""+activeRow[0].row.id+"\"]";
                           let foundRow = this.renderer.selectRootElement(selector);
                           foundRow.scrollIntoView();
-                 * 
-                 * unfortunately, simply invoking selectRootElement prevents the row from 
+                 *
+                 * unfortunately, simply invoking selectRootElement prevents the row from
                  * appearing in the list, so depricated code for now
-                 * 
+                 *
                  */
 
 
 
 
 
-            }
-            else {
-                //console.log("active row not found")
+            } else {
+                // console.log("active row not found")
                 this.doRoll = false;
             }
 
@@ -168,7 +163,7 @@ export class RestaurantList {
 
         this.subscriptions.forEach(s => {
             if (s) {
-                
+
                 s.unsubscribe();
                 s = null;
             }
@@ -176,7 +171,7 @@ export class RestaurantList {
 
     }
     sendWait(state: boolean) {
-        var waitMessage = <WaitRequest>{};
+        const waitMessage = <WaitRequest>{};
         waitMessage.state = state;
         this.sub.getChannel().publish(WAIT_TOPIC, waitMessage);
     }
@@ -198,9 +193,9 @@ export class RestaurantList {
 
 
                 if (this.selectedRowId && this.selectedRowId > 0) {
-                    //you are coming in on an ADD so roll the window
+                    // you are coming in on an ADD so roll the window
                     this.doRoll = true;
-                    //console.log("doing an add so roll")
+                    // console.log("doing an add so roll")
                 }
 
 
@@ -217,27 +212,22 @@ export class RestaurantList {
 
     }
 
-    public onEditChangeEvent(ev:any):void {
-
-        var message = null;
+    public onEditChangeEvent(ev: any): void {
 
         this.selectedRowId = ev.selectedRestaurant.id;
 
         if (ev.type === 'delete') {
 
-            var confirmMessage = 'Do you want to delete "' + ev.selectedRestaurant.name + '" ?'
-            var confirm = window.confirm(confirmMessage);
+            const confirmMessage = 'Do you want to delete "' + ev.selectedRestaurant.name + '" ?'
+            const confirm = window.confirm(confirmMessage);
             if (confirm && confirm === true) {
-                this.signalCRUDEvent("DELETE", ev);
+                this.signalCRUDEvent('DELETE', ev);
             }
 
-        }
-        else {
-            this.signalCRUDEvent("EDIT", ev);
+        } else {
+            this.signalCRUDEvent('EDIT', ev);
 
         }
-
-
 
     }
 
@@ -256,15 +246,15 @@ export class RestaurantList {
     }
 
 
-    public performAdd(ev:any):void {
-        let emptyRestaurant = <Restaurant>{};
+    public performAdd(ev: any): void {
+        const emptyRestaurant = <Restaurant>{};
         emptyRestaurant.id = -1;
         emptyRestaurant.version = 1;
-        emptyRestaurant.name = "";
-        emptyRestaurant.city = "";
-        emptyRestaurant.state = "";
-        emptyRestaurant.zipCode = "";
-        this.signalCRUDEvent("ADD", {selectedRestaurant: emptyRestaurant});
+        emptyRestaurant.name = '';
+        emptyRestaurant.city = '';
+        emptyRestaurant.state = '';
+        emptyRestaurant.zipCode = '';
+        this.signalCRUDEvent('ADD', { selectedRestaurant: emptyRestaurant });
 
 
     }

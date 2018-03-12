@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
     pure: true // optional, default is true false means maintain state
 })
 
-//http://voidcanvas.com/angular-2-pipes-filters/
+// http://voidcanvas.com/angular-2-pipes-filters/
 
 /**
  * this pipe takes two arguments,
@@ -19,16 +19,16 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 export class AppendPipe implements PipeTransform {
     transform(inputString: string, ...args: any[]): any {
-        if (args.length == 0) {
+        if (args.length === 0) {
             return inputString + ' ...';
         }
         let appValue = '.';
-        if (args.length == 2) {
+        if (args.length === 2) {
             appValue = args[1];
         }
 
         let t = inputString;
-        for (var k = 0; k < args[0]; k++) {
+        for (let k = 0; k < args[0]; k++) {
             t = t + appValue;
         }
 

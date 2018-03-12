@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+// tslint:disable:max-line-length
+import { Component, OnDestroy } from '@angular/core';
 import { Restaurant } from './../model/restaurant.interface';
 import { RestaurantService } from './../services/restaurant.service';
 import {PubSubService,  PubSubSystem } from './../services/pubsub.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC ,ADD_RESTAURANT_COMMIT_TOPIC,SAVE_RESTAURANT_COMMIT_TOPIC} from './../services/pubsub.service'
+import { CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC , ADD_RESTAURANT_COMMIT_TOPIC,
+    SAVE_RESTAURANT_COMMIT_TOPIC} from './../services/pubsub.service'
 
 
 
@@ -49,7 +51,7 @@ import { CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC ,ADD_RESTAURANT_COMMIT_TOPIC
 <td colspan='2'>
  
   <div *ngIf="!editForm.valid && !editForm.pristine">
-  
+
 <div *ngIf="!editForm.valid">
         <div class="red-color errorInfo" *ngIf="editForm.controls.name.errors && editForm.controls.name.errors.minlength">The name must be {{editForm.controls.name.errors.minlength.requiredLength}} chars long</div>
         <div class="red-color errorInfo" *ngIf="editForm.controls.city.errors && editForm.controls.city.errors.minlength">The city must be {{editForm.controls.city.errors.minlength.requiredLength}} chars long</div>
@@ -67,7 +69,7 @@ import { CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC ,ADD_RESTAURANT_COMMIT_TOPIC
 
 
 
-  
+
   </div>
 </td>
 </tr>
@@ -75,12 +77,12 @@ import { CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC ,ADD_RESTAURANT_COMMIT_TOPIC
 </table>
 </form>
 </section>
- 
-  
+
+
   `
 })
 //http://blog.ng-book.com/the-ultimate-guide-to-forms-in-angular-2/
-export class EditRestaurantContainer {
+export class EditRestaurantContainer implements OnDestroy {
 
 
 
@@ -110,17 +112,17 @@ export class EditRestaurantContainer {
         })
 
 
- 
+
         this.crudRequestSubscription = this.sub.getChannel().subscribe(CRUD_RESTAURANT_WILDCARD_TOPIC,
             (data: any, envelope: IEnvelope<any>) => this.handleCrudOperation(data, envelope));
 
-        
+
     }
 
     handleCrudOperation(data: any, envelope: IEnvelope<any>) {
-        let action = envelope.topic.split('.')[0];
+       const action = envelope.topic.split('.')[0];
        // console.log("in edit-restaurant handleCrud " + action);
-        if (action === "DELETE") {
+        if (action === 'DELETE') {
             this.backUp = null;
             this.editForm.reset();
             return;
@@ -153,45 +155,41 @@ export class EditRestaurantContainer {
         return this.editForm.valid && !this.equalToBackup();
     }
     /**
-     * return true if you are equal to the backup 
+     * return true if you are equal to the backup
      * false if not
      */
     equalToBackup() {
         if (!this.backUp) {
             return true;
         }
-        var akeys = Object.keys(this.backUp);
-        var bkeys = Object.keys(this.editForm.value);
-        var len = akeys.length;
-        if (len != bkeys.length) return false;
-        for (var i = 0; i < len; i++) {
-            if (this.backUp[akeys[i]] !== this.editForm.value[akeys[i]]) return false;
+        const akeys = Object.keys(this.backUp);
+        const bkeys = Object.keys(this.editForm.value);
+        const len = akeys.length;
+        if (len !== bkeys.length) { return false };
+        for (let i = 0; i < len; i++) {
+            if (this.backUp[akeys[i]] !== this.editForm.value[akeys[i]]) { return false };
         }
         return true;
     }
 
-
-
-
-    saveAction(ev:any) {
+    saveAction(ev: any) {
         if (this.formOkay()) {
-            var dataToSend = this.editForm.value;
+            const dataToSend = this.editForm.value;
             this.backUp = this.editForm.value;
             this.editForm.reset();
             this.editForm.setValue(this.backUp);
-            if (this.actionState == "ADD") {
-                 
-                this.sub.getChannel().publish(ADD_RESTAURANT_COMMIT_TOPIC,dataToSend);
-            }
-            else {
-                
-                this.sub.getChannel().publish(SAVE_RESTAURANT_COMMIT_TOPIC,dataToSend);
+            if (this.actionState === 'ADD') {
+
+                this.sub.getChannel().publish(ADD_RESTAURANT_COMMIT_TOPIC, dataToSend);
+            } else {
+
+                this.sub.getChannel().publish(SAVE_RESTAURANT_COMMIT_TOPIC, dataToSend);
             }
 
         }
     }
 
-    cancelAction(ev:any) {
+    cancelAction(ev: any) {
         this.editForm.reset();
         this.editForm.setValue(this.backUp);
 

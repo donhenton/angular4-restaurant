@@ -1,11 +1,11 @@
-import {PubSubService,  PubSubSystem } from './pubsub.service';
+import { PubSubService, PubSubSystem } from './pubsub.service';
 import { RestaurantService } from './restaurant.service';
 import { WaitRequest, Restaurant, messageType, RefreshMessage, ReviewDTO, ReviewPayload } from './../model/restaurant.interface';
 import { Injectable } from '@angular/core';
 import FeedbackMessageImpl from './../model/FeedbackMessageImpl';
 import {
     DELETE_RESTAURANT_TOPIC, FEEDBACK_TOPIC, REFRESH_RESTAURANT_TOPIC, EDIT_RESTAURANT_TOPIC,
-    COMMIT_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC,REFRESH_REVIEW_TOPIC,
+    COMMIT_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC, REFRESH_REVIEW_TOPIC,
     COMMIT_REVIEW_WILDCARD_TOPIC
 } from './../services/pubsub.service'
 
@@ -23,15 +23,15 @@ export class RestaurantActionService {
 
         this.sub.getChannel().subscribe(COMMIT_RESTAURANT_WILDCARD_TOPIC, (data, envelope: IEnvelope<any>) => {
 
-            let action = envelope.topic.split(".")[0];
+            const action = envelope.topic.split('.')[0];
             // console.log(`got action ${action} in restaurant-action-service`)
-            if (action === "ADD") {
+            if (action === 'ADD') {
                 this.handleAdd(data);
             }
-            if (action === "SAVE") {
+            if (action === 'SAVE') {
                 this.handleSave(data);
             }
-            if (action === "DELETE") {
+            if (action === 'DELETE') {
                 this.handleDelete(data);
             }
 
@@ -41,16 +41,16 @@ export class RestaurantActionService {
 
         this.sub.getChannel().subscribe(COMMIT_REVIEW_WILDCARD_TOPIC, (data: ReviewPayload, envelope: IEnvelope<any>) => {
 
-            let action = envelope.topic.split(".")[0];
+            const action = envelope.topic.split('.')[0];
 
 
-            if (action === "SAVE") {
+            if (action === 'SAVE') {
                 this.handleReviewSave(data);
             }
-            if (action === "ADD") {
+            if (action === 'ADD') {
                 this.handleReviewAdd(data);
             }
-            if (action === "DELETE") {
+            if (action === 'DELETE') {
                 this.handleReviewDelete(data);
             }
 
@@ -61,7 +61,7 @@ export class RestaurantActionService {
     }
 
     sendWait(state: boolean) {
-        var waitMessage = <WaitRequest>{};
+        const waitMessage = <WaitRequest>{};
         waitMessage.state = state;
         this.sub.getChannel().publish(WAIT_TOPIC, waitMessage);
     }
@@ -84,8 +84,8 @@ export class RestaurantActionService {
 
                 this.sendWait(true);
 
-                let f = new FeedbackMessageImpl();
-                f.message = "Restaurant Deleted";
+                const f = new FeedbackMessageImpl();
+                f.message = 'Restaurant Deleted';
                 f.show = true;
                 f.type = messageType.info;
                 this.sendFeedback(f);
@@ -100,8 +100,8 @@ export class RestaurantActionService {
     }
 
     handleAdd(data) {
-        let f = new FeedbackMessageImpl();
-        f.message = "Restaurant Added";
+        const f = new FeedbackMessageImpl();
+        f.message = 'Restaurant Added';
         f.show = true;
         f.type = messageType.info;
         this.sendWait(true);
@@ -110,7 +110,7 @@ export class RestaurantActionService {
             (idInfo) => {
                 this.sendFeedback(f);
                 this.sendRestaurantRefresh({ doRefresh: true, selectedRestaurantId: idInfo.id })
-                let newItem: Restaurant = { ...data };
+                const newItem: Restaurant = { ...data };
                 newItem.id = idInfo.id;
                 this.sub.getChannel().publish(EDIT_RESTAURANT_TOPIC, { selectedRestaurant: newItem })
 
@@ -124,8 +124,8 @@ export class RestaurantActionService {
 
     handleSave(data) {
 
-        let f = new FeedbackMessageImpl();
-        f.message = "Save completed";
+        const f = new FeedbackMessageImpl();
+        f.message = 'Save completed';
         f.show = true;
         f.type = messageType.info;
         this.sendWait(true)
@@ -146,16 +146,16 @@ export class RestaurantActionService {
     ///// reviews /////////////////////////////////////////
 
 
-    sendReviewRefresh(restaurantId: number,feedback:string) {
-        let f = new FeedbackMessageImpl();
+    sendReviewRefresh(restaurantId: number, feedback: string) {
+        const f = new FeedbackMessageImpl();
         f.message = feedback;
         f.show = true;
         f.type = messageType.info;
-        this.restaurantService.getRestaurant(restaurantId + "").subscribe(
+        this.restaurantService.getRestaurant(restaurantId + '').subscribe(
 
             (data) => {
                 this.sendFeedback(f);
-                this.sub.getChannel().publish(REFRESH_REVIEW_TOPIC,{selectedRestaurant:data})
+                this.sub.getChannel().publish(REFRESH_REVIEW_TOPIC, { selectedRestaurant: data })
 
             },
             err => {
@@ -173,8 +173,8 @@ export class RestaurantActionService {
         this.restaurantService.addReview(data).subscribe(
 
             () => {
-                 
-                this.sendReviewRefresh(data.restaurantId,"Review Added");
+
+                this.sendReviewRefresh(data.restaurantId, 'Review Added');
 
             },
             err => { console.log(JSON.stringify(err)) }
@@ -188,8 +188,8 @@ export class RestaurantActionService {
         this.restaurantService.deleteReview(data).subscribe(
 
             () => {
-                 
-                this.sendReviewRefresh(data.restaurantId,"Review Deleted");
+
+                this.sendReviewRefresh(data.restaurantId, 'Review Deleted');
 
             },
             err => { console.log(JSON.stringify(err)) }
@@ -201,13 +201,13 @@ export class RestaurantActionService {
 
 
     handleReviewSave(data: ReviewPayload) {
-        
+
         this.sendWait(true)
         this.restaurantService.saveReview(data).subscribe(
 
             () => {
-                 
-                this.sendReviewRefresh(data.restaurantId,"Review Saved");
+
+                this.sendReviewRefresh(data.restaurantId, 'Review Saved');
 
             },
             err => { console.log(JSON.stringify(err)) }
