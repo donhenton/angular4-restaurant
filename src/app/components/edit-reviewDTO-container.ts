@@ -1,3 +1,5 @@
+//frump
+
 import { Component } from '@angular/core';
 import * as postal from "postal";
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -8,7 +10,6 @@ import {
 } from './../services/pubsub.service'
 import { WaitRequest, Restaurant, ReviewDTO, ReviewPayload } from "../model/restaurant.interface";
 import { ReviewListRow } from './review-list-row';
-
 
 
 @Component({
@@ -101,8 +102,8 @@ export class EditReviewDTOContainer {
 
     handleCrudOperation(data: Restaurant, envelope: IEnvelope<any>) {
 
-        let action = envelope.topic.split('.')[0];
-        //console.log("receiving crud " + JSON.stringify(envelope))
+        const action = envelope.topic.split('.')[0];
+        // console.log("receiving crud " + JSON.stringify(envelope))
         if (action === "EDIT") {
             // console.log("data " + JSON.stringify(data.reviewDTOs))
 
@@ -140,9 +141,9 @@ export class EditReviewDTOContainer {
 
     addReview() {
 
-        let newReview = <ReviewDTO>{};
+        const newReview = <ReviewDTO>{};
         newReview.id = -1;
-        newReview.reviewListing = "";
+        newReview.reviewListing = '';
         newReview.stampDate = null;
         newReview.starRating = 1;
         this.reviewList = [newReview].concat(this.reviewList);
@@ -154,7 +155,7 @@ export class EditReviewDTOContainer {
 
     onEditChangeEvent(ev) {
 
-        if (ev.type == "FORM_VALIDATION")
+        if (ev.type == 'FORM_VALIDATION')
         {
 
            // console.log(`validation message ${ev.invalid} ${ev.message}`)
@@ -164,25 +165,25 @@ export class EditReviewDTOContainer {
             }
             else
             {
-                this.validationMessage = "";
+                this.validationMessage = '';
             }
 
         }
 
 
-        if (ev.type == "ADD")
+        if (ev.type == 'ADD')
         {
-                let payload: ReviewPayload = <ReviewPayload>{};
+                const payload: ReviewPayload = <ReviewPayload>{};
                 payload.restaurantId = this.backUp.id;
                 payload.reviewDTO = ev.selectedReview;
                 this.sub.getChannel().publish(ADD_REVIEW_COMMIT_TOPIC, payload);
                 return;
         }
 
-        if (ev.type == "DELETE") {
-            let sure = window.confirm("Are you sure you want to delete the current review?");
+        if (ev.type == 'DELETE') {
+            const sure = window.confirm('Are you sure you want to delete the current review?');
             if (sure) {
-                let payload: ReviewPayload = <ReviewPayload>{};
+                const payload: ReviewPayload = <ReviewPayload>{};
                 payload.restaurantId = this.backUp.id;
                 payload.reviewDTO = ev.selectedReview;
                 this.sub.getChannel().publish(DELETE_REVIEW_COMMIT_TOPIC, payload);
@@ -192,27 +193,27 @@ export class EditReviewDTOContainer {
 
         if (this.reviewBackup && this.reviewBackup.id !== ev.selectedReview.id) {
             return;
-        } //events from buttons not on the current review are ignored
+        } // events from buttons not on the current review are ignored
 
 
-  
 
 
-        //console.log("review container " + JSON.stringify(ev));
+
+        // console.log("review container " + JSON.stringify(ev));
         this.reviewBackup = { ...ev.selectedReview };
 
-        if (ev.type == "CANCEL") {
+        if (ev.type === 'CANCEL') {
             this.reviewBackup = null;
-            let t: IEnvelope<any> = <IEnvelope<any>>{};
+            const t: IEnvelope<any> = <IEnvelope<any>>{};
             t.topic = EDIT_RESTAURANT_TOPIC;
-            this.validationMessage = "";
+            this.validationMessage = '';
             this.handleCrudOperation(this.backUp, t);
 
             return;
         }
         if (ev.type === 'SAVE') {
-            //console.log("the review listing is "+ev.selectedReview.reviewListing)
-            let payload: ReviewPayload = <ReviewPayload>{};
+            // console.log("the review listing is "+ev.selectedReview.reviewListing)
+            const payload: ReviewPayload = <ReviewPayload>{};
             payload.restaurantId = this.backUp.id;
             payload.reviewDTO = ev.selectedReview;
 

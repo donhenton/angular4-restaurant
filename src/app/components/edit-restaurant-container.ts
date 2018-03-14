@@ -81,7 +81,7 @@ import { CRUD_RESTAURANT_WILDCARD_TOPIC, WAIT_TOPIC , ADD_RESTAURANT_COMMIT_TOPI
 
   `
 })
-//http://blog.ng-book.com/the-ultimate-guide-to-forms-in-angular-2/
+// http://blog.ng-book.com/the-ultimate-guide-to-forms-in-angular-2/
 export class EditRestaurantContainer implements OnDestroy {
 
 
