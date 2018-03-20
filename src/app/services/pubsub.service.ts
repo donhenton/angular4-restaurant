@@ -31,6 +31,7 @@ export const FEEDBACK_TOPIC = 'feedback.topic';
 export const WAIT_TOPIC = 'wait.topic';
 export const REFRESH_RESTAURANT_TOPIC = 'refresh.restaurant.topic';
 
+// injectable only means that you can INJECT something in here via constructor
 
 @Injectable()
 export class PubSubService {
